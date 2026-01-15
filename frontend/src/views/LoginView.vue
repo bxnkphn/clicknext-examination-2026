@@ -96,7 +96,7 @@ const handleLogin = async () => {
               </span>
               <input :type="showPassword ? 'text' : 'password'" id="password" class="form-control bg-dark text-white border-secondary" :class="{ 'is-invalid': errors.password }" v-model="password" placeholder="password" />
               <button class="btn btn-outline-secondary text-white" type="button" @click="togglePasswordVisibility" tabindex="-1">
-                <i :class="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
+                <i :class="showPassword ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill'"></i>
               </button>
               <div class="invalid-feedback">
                 {{ errors.password }}
