@@ -5,16 +5,13 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const email = ref("");
 const password = ref("");
-
 const showPassword = ref(false);
-
 const errors = ref({
   email: "",
   password: "",
 });
 
 const isLoading = ref(false);
-
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
@@ -44,7 +41,6 @@ const validateForm = () => {
 
 const handleLogin = async () => {
   if (!validateForm()) return;
-
   isLoading.value = true;
 
   try {
@@ -68,12 +64,12 @@ const handleLogin = async () => {
 
       router.push('/banking');
     } else {
-      alert(data.message || "การเข้าสู่ระบบล้มเหลว");
+      console.log(data.message || "การเข้าสู่ระบบล้มเหลว");
     }
   
   } catch (error) {
     console.error('Error:', error);
-    alert("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
+    console.log("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
   } finally {
     isLoading.value = false;
   }
@@ -84,15 +80,12 @@ const handleLogin = async () => {
   <div class="d-flex justify-content-center align-items-center vh-100 bg-dark p-4">
 
     <div class="card bg-dark bg-gradient text-white shadow" style="max-width: 400px; width: 100%">
-     
       <img src="../assets/images/banner.png" style="max-width: 100%; height: auto;" class="card-img-top" alt="Banking Web App banner">
-     
       <div class="card-body p-4">
         <div class="text-center mb-4">
           <h2 class="text-white fw-bold fs-3">เข้าสู่ระบบ</h2>
           <p class="text-white-50 small">กรอกรหัสผ่านและอีเมลของคุณเพื่อเข้าสู่ระบบ</p>
         </div>
-
         <form @submit.prevent="handleLogin">         
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -106,7 +99,6 @@ const handleLogin = async () => {
               </div>
             </div>
           </div>
-
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <div class="input-group has-validation">
@@ -122,7 +114,6 @@ const handleLogin = async () => {
               </div>
             </div>
           </div>
-
           <button type="submit" class="btn btn-primary w-100 py-2 mt-3 fw-bold shadow-sm" :disabled="isLoading">
             <span v-if="isLoading">
               <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -130,18 +121,16 @@ const handleLogin = async () => {
             <span v-else>เข้าสู่ระบบ</span>
           </button>
         </form>
-
-        <p class="text-center text-white-50 mt-4 small">
-          หากไม่มีบัญชีสามารถสมัครสมาชิกได้ <a href="#" class="text-primary-500 fw-bold">ที่นี่</a>
-        </p>
+        <p class="text-center text-warning" style="font-size: 12px;">(Demo Account : mentor@clicknext.co.th / 123456)</p>
       </div>
     </div>
+
   </div>
 </template>
 
 <style scoped>
-::placeholder {
-  color: #adb5bd !important;
-  opacity: 0.5;
-}
+  ::placeholder {
+    color: #adb5bd !important;
+    opacity: 0.5;
+  }
 </style>
