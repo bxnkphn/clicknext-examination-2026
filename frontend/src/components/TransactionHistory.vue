@@ -134,6 +134,7 @@ onMounted(() => fetchHistory());
             <strong>{{ alertState.type === 'success' ? 'สำเร็จ!' : 'แจ้งเตือน!' }}</strong> {{ alertState.message }}
             <button type="button" class="btn-close" @click="alertState.show = false" aria-label="Close"></button>
         </div>
+        <h2 class="fw-bold mb-4 fs-3 d-block d-md-none">ประวัติธุรกรรม</h2>
         <div class="card shadow-sm bg-dark bg-gradient border border-secondary text-white overflow-hidden d-none d-md-block">
             <div class="table-responsive">
                 <table class="table table-dark table-hover mb-0 align-middle">
