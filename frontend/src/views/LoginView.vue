@@ -11,6 +11,8 @@ const errors = ref({
   password: "",
 });
 
+const loginError = ref(""); 
+
 const isLoading = ref(false);
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
@@ -40,6 +42,8 @@ const validateForm = () => {
 };
 
 const handleLogin = async () => {
+  loginError.value = ""; 
+  
   if (!validateForm()) return;
   isLoading.value = true;
 
@@ -64,12 +68,12 @@ const handleLogin = async () => {
 
       router.push('/banking');
     } else {
-      console.log(data.message || "การเข้าสู่ระบบล้มเหลว");
+      loginError.value = data.message || "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
     }
   
   } catch (error) {
     console.error('Error:', error);
-    console.log("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้");
+    loginError.value = "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่ภายหลัง";
   } finally {
     isLoading.value = false;
   }
@@ -77,14 +81,18 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <div class="d-flex justify-content-center align-items-center vh-100 bg-dark p-4">
 
+  <div class="d-flex justify-content-center align-items-center vh-100 bg-dark p-4">
     <div class="card bg-dark bg-gradient text-white shadow" style="max-width: 400px; width: 100%">
       <img src="../assets/images/banner.png" style="max-width: 100%; height: auto;" class="card-img-top" alt="Banking Web App banner">
       <div class="card-body p-4">
         <div class="text-center mb-4">
           <h2 class="text-white fw-bold fs-3">เข้าสู่ระบบ</h2>
           <p class="text-white-50 small">กรอกรหัสผ่านและอีเมลของคุณเพื่อเข้าสู่ระบบ</p>
+        </div>
+        <div v-if="loginError" class="alert alert-danger d-flex align-items-center mb-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <div>{{ loginError }}</div>
         </div>
         <form @submit.prevent="handleLogin">         
           <div class="mb-3">
@@ -121,11 +129,11 @@ const handleLogin = async () => {
             <span v-else>เข้าสู่ระบบ</span>
           </button>
         </form>
-        <p class="text-center text-warning" style="font-size: 12px;">(Demo Account : mentor@clicknext.co.th / 123456)</p>
+        <p class="text-center text-warning mt-3" style="font-size: 12px;">(Demo Account : mentor@clicknext.co.th / 123456)</p>
       </div>
     </div>
-
   </div>
+
 </template>
 
 <style scoped>
